@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "alpaca_core"
+version = "0.1.0"
+description = "Provider-agnostic market data / trading client with an Alpaca backend, CLI and local HTTP service"
+requires-python = ">=3.10"
+dependencies = ["httpx>=0.27"]
+
+[project.optional-dependencies]
+server = ["fastapi>=0.110", "uvicorn>=0.29"]
+dev = ["pytest>=8", "respx>=0.21"]
+
+[project.scripts]
+alpaca-core = "alpaca_core.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-m 'not live'"
+markers = ["live: read-only smoke tests against the real paper account (run with -m live)"]
